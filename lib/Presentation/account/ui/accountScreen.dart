@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../App/colors.dart';
-import '../Widgets/common/appbar.dart';
-import '../Widgets/common/appbarLayout.dart';
+import '../../../App/colors.dart';
+import '../../Widgets/common/appbar.dart';
+import '../../Widgets/common/appbarLayout.dart';
 
 class AccountScreen extends StatelessWidget {
   @override

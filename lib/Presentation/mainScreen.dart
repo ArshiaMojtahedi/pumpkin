@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:pumpkin/Presentation/categories/ui/caregories.dart';
 
 import '../App/colors.dart';
-import 'account/accountScreen.dart';
+import 'account/ui/accountScreen.dart';
 
 class MainScreen extends StatefulWidget {
   @override
