@@ -1,0 +1,116 @@
+name: pumpkin
+description: A new Flutter project.
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.2 <3.0.0'
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  appwrite: ^9.0.0
+  badges: ^3.1.1
+  cupertino_icons: ^1.0.2
+  dartz: ^0.10.1
+  email_validator: ^2.1.17
+  encrypt: ^5.0.1
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.2
+  flutter_snake_navigationbar: ^0.6.1
+  get: ^4.6.5
+  get_it: ^7.3.0
+  internet_connection_checker: ^1.0.0+1
+  lottie: ^2.3.2
+  shared_preferences: ^2.1.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/tab_cart_on.png
+    - assets/images/tab_cart_off.png
+    - assets/images/tab_explore_on.png
+    - assets/images/tab_explore_off.png
+    - assets/images/tab_shop_on.png
+    - assets/images/tab_shop_off.png
+    - assets/images/tab_favorites_on.png
+    - assets/images/tab_favorites_off.png
+    - assets/images/tab_account_on.png
+    - assets/images/tab_account_off.png
+    - assets/images/tab_orders_on.png
+    - assets/images/tab_orders_off.png
+    - assets/images/search_icon.png
+    - assets/images/location_icon.png
+    - assets/images/logo.png
+    - assets/images/add_to_cart_icon.png
+    - assets/images/decrease_icon.png
+    - assets/images/increase_icon.png
+    - assets/images/back_arrow_icon.png
+    - assets/images/close_icon.png
+    - assets/images/heart_filled_icon.png
+    - assets/images/heart_outline_icon.png
+    - assets/images/right_arrow_icon.png
+    - assets/images/filter_icon.png
+    - assets/images/bg.png
+    - assets/images/order_success_artwork.png
+    - assets/images/status_icon.png
+    - assets/images/status_inprogress_icon.png
+    - assets/images/logo_splash.png
+    - assets/images/profile_photo.jpg
+    - assets/images/logout_icon.png
+    - assets/images/mydetails_icon.png
+    - assets/images/payment_icon.png
+    - assets/images/promo_icon.png
+    - assets/images/notification_icon.png
+    - assets/images/help_icon.png
+    - assets/images/about_icon.png
+    - assets/images/addresses_icon.png
+
+    #Lottie JSON
+    - assets/images/lottie/done.json
+    - assets/images/lottie/cart_change.json
+    - assets/images/lottie/alert.json
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: assets/fonts/Gilroy-Regular.ttf
+        - asset: assets/fonts/Gilroy-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Gilroy-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Gilroy-Heavy.ttf
+          weight: 800
