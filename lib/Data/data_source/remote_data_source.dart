@@ -24,6 +24,8 @@ abstract class RemoteDataSource {
 
   Future<DocumentList> getAllProducts();
 
+  Future<Document> getSingleProduct(String productId);
+
   Future<DocumentList> getAllCategories();
 
   Future<Document> getSingleCategory(String catId);
@@ -62,6 +64,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<DocumentList> getAllProducts() => _appServiceClient.getAllProducts();
+
+  @override
+  Future<Document> getSingleProduct(String productId) =>
+      _appServiceClient.getSingleProduct(productId);
 
   @override
   Future<DocumentList> getAllCategories() =>

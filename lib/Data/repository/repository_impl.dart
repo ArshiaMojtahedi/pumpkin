@@ -171,6 +171,32 @@ class RepositoryImpl extends Repository {
   }
 
   @override
+  Future<Either<Failure, Product>> getSingleProduct(String productId) async {
+    if (kIsWeb ? true : (await _networkInfo?.isConnected ?? false)) {
+      try {
+        final res = await _remoteDataSource.getSingleProduct(productId);
+
+        Product product = Product.fromJson(res.data);
+
+        Uint8List image =
+            await _remoteDataSource.getFilePreview(product.imageId);
+
+        product.image = image;
+
+        return Right(product);
+      } on AppwriteException catch (e) {
+        print(e.message);
+        return Left(Failure(e.code ?? 0,
+            e.message ?? 'Some thing went wrong, try again later'));
+      } catch (error) {
+        return Left(Failure(0, error.toString()));
+      }
+    } else {
+      return Left(Failure(-7, 'Please check your internet connection'));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<CategoryModel>>> getAllCategories() async {
     if (kIsWeb ? true : (await _networkInfo?.isConnected ?? false)) {
       try {

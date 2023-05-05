@@ -6,7 +6,7 @@ class Product {
   String id;
   String name;
   String description;
-
+  String detail;
   double price;
   String imageId;
   Uint8List image;
@@ -15,6 +15,7 @@ class Product {
       {required this.id,
       required this.name,
       required this.description,
+      required this.detail,
       required this.price,
       required this.imageId,
       required this.image});
@@ -24,6 +25,7 @@ class Product {
       id: map['\$id'] ?? '',
       name: map['name'] ?? '',
       description: map['description'] ?? '',
+      detail: map['detail'] ?? 'adsd',
       price: map['price'] ?? '',
       imageId: map['image'] ?? '',
       image: Uint8List(0),
@@ -34,6 +36,7 @@ class Product {
         id: json['\$id'],
         name: json['name'],
         description: json['description'],
+        detail: json['detail'] ?? '',
         price: json['price'],
         imageId: json['image'] ?? '',
         image: Uint8List(0),

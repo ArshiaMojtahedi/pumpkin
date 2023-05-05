@@ -58,6 +58,12 @@ class AppServiceClient {
         collectionId: Constant.productsCollection,
       );
 
+  Future<Document> getSingleProduct(String productId) => _databases.getDocument(
+        databaseId: Constant.databaseId,
+        collectionId: Constant.productsCollection,
+        documentId: productId,
+      );
+
   Future<DocumentList> getAllCategories() => _databases.listDocuments(
         databaseId: Constant.databaseId,
         collectionId: Constant.categoriesCollection,

@@ -5,29 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../App/colors.dart';
-import '../../product/productDetailScreen.dart';
+import '../../../Data/model/product.dart';
+import '../../product/ui/productDetailScreen.dart';
 
 class ItemBox extends StatelessWidget {
-  int id;
-  String title;
-  String description;
+  Product product;
+
   int? amount;
-  double price;
-  Uint8List image;
+
   bool isHorizentalItem;
-  ItemBox(
-      {required this.id,
-      required this.title,
-      required this.description,
-      this.amount = 0,
-      this.isHorizentalItem = false,
-      required this.price,
-      required this.image});
+  ItemBox({
+    required this.product,
+    this.amount = 0,
+    this.isHorizentalItem = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(ProductDetailScreen(), arguments: id),
+      onTap: () => Get.to(ProductDetailScreen(), arguments: product.id),
       child: Stack(
         children: [
           Container(
@@ -49,7 +45,7 @@ class ItemBox extends StatelessWidget {
               children: [
                 Center(
                   child: Image.memory(
-                    image,
+                    product.image,
                     width: 100,
                     height: 80,
                   ),
@@ -58,14 +54,14 @@ class ItemBox extends StatelessWidget {
                   height: 24,
                 ),
                 Text(
-                  title,
+                  product.name,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 8,
                 ),
                 Text(
-                  description,
+                  product.description,
                   style: TextStyle(fontSize: 12, color: Appcolors().textColor2),
                 ),
                 Spacer(),
@@ -73,7 +69,7 @@ class ItemBox extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "\$" + price.toString(),
+                      "\$" + product.price.toString(),
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),

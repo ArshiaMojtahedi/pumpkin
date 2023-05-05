@@ -25,6 +25,8 @@ abstract class Repository {
 
   Future<Either<Failure, List<Product>>> getAllProducts();
 
+  Future<Either<Failure, Product>> getSingleProduct(String productId);
+
   Future<Either<Failure, List<CategoryModel>>> getAllCategories();
 
   Future<Either<Failure, List<Product>>> getSingleCategory(String catId);

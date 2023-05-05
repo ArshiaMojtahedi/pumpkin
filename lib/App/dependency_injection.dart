@@ -4,6 +4,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pumpkin/Domain/usecase/Categories_usecase.dart';
 import 'package:pumpkin/Domain/usecase/products_usecase.dart';
 import 'package:pumpkin/Domain/usecase/single_category_usecase.dart';
+import 'package:pumpkin/Domain/usecase/single_product_usecase.dart';
 import 'package:pumpkin/Presentation/categories/cubit/categories_cubit.dart';
 import 'package:pumpkin/Presentation/login/cubit/login_cubit.dart';
 import 'package:pumpkin/Presentation/products/cubit/products_cubit.dart';
@@ -18,6 +19,7 @@ import '../Data/repository/repository_impl.dart';
 import '../Domain/repository/repository.dart';
 import '../Domain/usecase/login_usecase.dart';
 import '../Domain/usecase/register_usecase.dart';
+import '../Presentation/product/cubit/product_cubit.dart';
 import 'app_preferences.dart';
 import 'encrypt_helper.dart';
 
@@ -61,6 +63,11 @@ Future<void> initModule() async {
 
   instance.registerFactory(() => CategoriesCubit(
       categoriesUseCase: instance(), singleCategoryUseCase: instance()));
+
+  instance.registerLazySingleton<SingleProductUseCase>(
+      () => SingleProductUseCase(instance()));
+
+  instance.registerFactory(() => ProductCubit(productUseCase: instance()));
 }
 
 // void initLoginModule() {
