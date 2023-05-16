@@ -6,10 +6,12 @@ import 'package:pumpkin/Presentation/test/ui/test.dart';
 
 import 'App/dependency_injection.dart';
 import 'App/colors.dart';
+import 'Data/local/hive_client.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initModule();
+  await initHive();
   runApp(const MyApp());
 }
 

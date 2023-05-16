@@ -1,10 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:pumpkin/Data/data_source/local_data_source.dart';
 import 'package:pumpkin/Domain/usecase/Categories_usecase.dart';
+import 'package:pumpkin/Domain/usecase/add_cart_item_usecase.dart';
+import 'package:pumpkin/Domain/usecase/cart_list_usecase.dart';
 import 'package:pumpkin/Domain/usecase/products_usecase.dart';
 import 'package:pumpkin/Domain/usecase/single_category_usecase.dart';
 import 'package:pumpkin/Domain/usecase/single_product_usecase.dart';
+import 'package:pumpkin/Presentation/cart/ui/cubit/cart_cubit.dart';
 import 'package:pumpkin/Presentation/categories/cubit/categories_cubit.dart';
 import 'package:pumpkin/Presentation/login/cubit/login_cubit.dart';
 import 'package:pumpkin/Presentation/products/cubit/products_cubit.dart';
@@ -23,63 +27,49 @@ import '../Presentation/product/cubit/product_cubit.dart';
 import 'app_preferences.dart';
 import 'encrypt_helper.dart';
 
-final instance = GetIt.instance;
+final sl = GetIt.instance;
 
 Future<void> initModule() async {
   final sharedPrefs = await SharedPreferences.getInstance();
-  instance.registerLazySingleton<EncryptHelper>(() => EncryptHelper());
-  instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
-  instance.registerLazySingleton<AppPreferences>(
-      () => AppPreferences(instance(), instance()));
+  sl.registerLazySingleton<EncryptHelper>(() => EncryptHelper());
+  sl.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
+  sl.registerLazySingleton<AppPreferences>(() => AppPreferences(sl(), sl()));
   if (!kIsWeb) {
-    instance.registerLazySingleton<NetworkInfo>(
+    sl.registerLazySingleton<NetworkInfo>(
         () => NetworkInfoImple(InternetConnectionChecker()));
   }
-  instance.registerLazySingleton<AppWriteClientFactory>(
+  sl.registerLazySingleton<AppWriteClientFactory>(
       () => AppWriteClientFactory());
-  final client = await instance<AppWriteClientFactory>().getClient();
-  instance.registerLazySingleton<AppServiceClient>(
-      () => AppServiceClient(client, instance()));
-  instance.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImpl(instance()));
-  instance.registerLazySingleton<Repository>(
-      () => RepositoryImpl(instance(), kIsWeb ? null : instance()));
+  final client = await sl<AppWriteClientFactory>().getClient();
+  sl.registerLazySingleton<AppServiceClient>(
+      () => AppServiceClient(client, sl()));
+  sl.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl());
 
-  instance.registerLazySingleton<LoginUseCase>(() => LoginUseCase(instance()));
+  sl.registerLazySingleton<Repository>(
+      () => RepositoryImpl(sl(), kIsWeb ? null : sl(), sl()));
 
-  instance.registerFactory(
-      () => LoginCubit(loginUseCase: instance(), appPreferences: instance()));
+  //Usecases
 
-  instance.registerLazySingleton<ProductsUseCase>(
-      () => ProductsUseCase(instance()));
+  sl.registerLazySingleton<LoginUseCase>(() => LoginUseCase(sl()));
 
-  instance.registerFactory(() => ProductsCubit(productsUseCase: instance()));
+  sl.registerLazySingleton<ProductsUseCase>(() => ProductsUseCase(sl()));
+  sl.registerLazySingleton<CategoriesUseCase>(() => CategoriesUseCase(sl()));
+  sl.registerLazySingleton<SingleCategoryUseCase>(
+      () => SingleCategoryUseCase(sl()));
+  sl.registerLazySingleton<SingleProductUseCase>(
+      () => SingleProductUseCase(sl()));
+  sl.registerLazySingleton<CartListUseCase>(() => CartListUseCase(sl()));
+  sl.registerLazySingleton<AddToCartUseCase>(() => AddToCartUseCase(sl()));
 
-  instance.registerLazySingleton<CategoriesUseCase>(
-      () => CategoriesUseCase(instance()));
+  //Cubits
+  sl.registerFactory(() => ProductCubit(productUseCase: sl()));
 
-  instance.registerLazySingleton<SingleCategoryUseCase>(
-      () => SingleCategoryUseCase(instance()));
-
-  instance.registerFactory(() => CategoriesCubit(
-      categoriesUseCase: instance(), singleCategoryUseCase: instance()));
-
-  instance.registerLazySingleton<SingleProductUseCase>(
-      () => SingleProductUseCase(instance()));
-
-  instance.registerFactory(() => ProductCubit(productUseCase: instance()));
+  sl.registerFactory(
+      () => LoginCubit(loginUseCase: sl(), appPreferences: sl()));
+  sl.registerFactory(() => ProductsCubit(productsUseCase: sl()));
+  sl.registerFactory(() =>
+      CategoriesCubit(categoriesUseCase: sl(), singleCategoryUseCase: sl()));
+  sl.registerFactory(
+      () => CartCubit(addToCartUseCase: sl(), cartListUseCase: sl()));
 }
-
-// void initLoginModule() {
-//   if (!GetIt.I.isRegistered<LoginUseCase>()) {
-//     instance
-//         .registerLazySingleton<LoginUseCase>(() => LoginUseCase(instance()));
-//   }
-// }
-
-// void initRegisterModule() {
-//   if (!GetIt.I.isRegistered<RegisterUseCase>()) {
-//     instance.registerLazySingleton<RegisterUseCase>(
-//         () => RegisterUseCase(instance()));
-//   }
-// }

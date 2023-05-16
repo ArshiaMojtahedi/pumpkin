@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pumpkin/Presentation/cart/ui/cartScreen.dart';
 
 import '../../../App/colors.dart';
 
@@ -24,7 +25,7 @@ class CartIcon extends StatelessWidget {
         position: badge.BadgePosition.custom(bottom: 10, start: 18),
         // position: badge.BadgePosition(),
         child: GestureDetector(
-          onTap: () => Get.toNamed("/cart"),
+          onTap: () => Get.to(CartScreen()),
           child: Image.asset(
             "assets/images/tab_cart_off.png",
             height: 25,

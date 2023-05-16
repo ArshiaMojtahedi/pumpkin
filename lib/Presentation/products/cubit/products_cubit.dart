@@ -10,6 +10,7 @@ import 'package:pumpkin/Domain/usecase/login_usecase.dart';
 import 'package:pumpkin/Domain/usecase/products_usecase.dart';
 
 import '../../../App/app_preferences.dart';
+import '../../../Domain/usecase/base_usecase.dart';
 part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
@@ -20,12 +21,18 @@ class ProductsCubit extends Cubit<ProductsState> {
   fetch() {
     emit(ProductsProgress());
 
-    productsUseCase.execute(ProductsUseCaseInput()).then((value) async {
-      if (value.isRight()) {
-        emit(ProductsSuccesed(value.asRight()));
-      } else if ((value.isLeft())) {
-        emit(ProductFailed((value.asLeft())));
-      }
+    productsUseCase.execute(const NoParameters()).then((value) async {
+      value.fold(
+          (l) => emit(
+                ProductFailed((l)),
+              ),
+          (r) => emit(ProductsSuccesed((r))));
+
+      // if (value.isRight()) {
+      //   emit(ProductsSuccesed(value.asRight()));
+      // } else if ((value.isLeft())) {
+      //   emit(ProductFailed((value.asLeft())));
+      // }
     });
   }
 }

@@ -4,10 +4,12 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
+import 'package:pumpkin/Data/model/cartItem.dart';
 import 'package:pumpkin/Data/model/category.dart';
 import 'package:pumpkin/Data/model/product.dart';
 
 import '../../Domain/repository/repository.dart';
+import '../data_source/local_data_source.dart';
 import '../data_source/remote_data_source.dart';
 import '../network/failure.dart';
 import '../network/network_info.dart';
@@ -15,9 +17,11 @@ import '../request/request.dart';
 
 class RepositoryImpl extends Repository {
   final RemoteDataSource _remoteDataSource;
+  final LocalDataSource _localDataSource;
   final NetworkInfo? _networkInfo;
 
-  RepositoryImpl(this._remoteDataSource, this._networkInfo);
+  RepositoryImpl(
+      this._remoteDataSource, this._networkInfo, this._localDataSource);
 
   @override
   Future<Either<Failure, Session>> login(LoginRequest loginRequest) async {
@@ -260,6 +264,28 @@ class RepositoryImpl extends Repository {
       }
     } else {
       return Left(Failure(-7, 'Please check your internet connection'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CartItem>>> getCartItems() async {
+    try {
+      final items = await _localDataSource.getCartItems();
+
+      return Right(items);
+    } catch (e) {
+      return Left(Failure(0, e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addCartItem(
+      CartItem cartItem, int count) async {
+    try {
+      await _localDataSource.addCartItem(cartItem, count: count);
+      return const Right(null);
+    } catch (e) {
+      return Left(Failure(0, e.toString()));
     }
   }
 }

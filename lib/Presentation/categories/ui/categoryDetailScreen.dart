@@ -83,7 +83,6 @@ class _CategoryDetailScreen extends StatelessWidget {
                                   itemCount: state.data.length,
                                   itemBuilder: (ctx, i) => ItemBox(
                                     product: state.data[i],
-                                    amount: 0,
                                   ),
                                 ),
                               ),

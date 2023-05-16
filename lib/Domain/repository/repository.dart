@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:appwrite/models.dart';
 import 'package:dartz/dartz.dart';
+import 'package:pumpkin/Data/model/cartItem.dart';
 import 'package:pumpkin/Data/model/category.dart';
 
 import '../../Data/model/product.dart';
@@ -30,4 +31,13 @@ abstract class Repository {
   Future<Either<Failure, List<CategoryModel>>> getAllCategories();
 
   Future<Either<Failure, List<Product>>> getSingleCategory(String catId);
+
+  //Local
+
+  Future<Either<Failure, List<CartItem>>> getCartItems();
+
+  Future<Either<Failure, void>> addCartItem(CartItem cartItem, int count);
+
+  // Future<Either<Failure, void>> updateUser(UserModel user);
+  // Future<Either<Failure, void>> deleteUser(int userId);
 }

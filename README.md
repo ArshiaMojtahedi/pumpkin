@@ -55,6 +55,17 @@ Pumpkin has the following features:
 ![Screenshot 1](screenshots/screenshot1.png)
 
 ![Screenshot 2](screenshots/screenshot2.png)
+<!-- <div align="center">
+    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME/main/screenshots/screenshot1.png" width="200"/>
+    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME/main/screenshots/screenshot2.png" width="200"/>
+    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME/main/screenshots/screenshot3.png" width="200"/>
+</div>
+
+<div align="center">
+    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME/main/screenshots/screenshot4.png" width="200"/>
+    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME/main/screenshots/screenshot5.png" width="200"/>
+    <img src="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME/main/screenshots/screenshot6.png" width="200"/>
+</div> -->
 
 ## Contributing
 
