@@ -38,6 +38,11 @@ abstract class Repository {
 
   Future<Either<Failure, void>> addCartItem(CartItem cartItem, int count);
 
-  // Future<Either<Failure, void>> updateUser(UserModel user);
-  // Future<Either<Failure, void>> deleteUser(int userId);
+  Future<Either<Failure, void>> updateCartItem(String id, int count);
+
+  Future<Either<Failure, void>> deleteCartItem(String id);
+
+  Future<Either<Failure, int>> getCartCount();
+
+  Future<Either<Failure, int>> getItemCount(String id);
 }

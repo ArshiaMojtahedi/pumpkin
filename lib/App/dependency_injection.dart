@@ -5,6 +5,8 @@ import 'package:pumpkin/Data/data_source/local_data_source.dart';
 import 'package:pumpkin/Domain/usecase/Categories_usecase.dart';
 import 'package:pumpkin/Domain/usecase/add_cart_item_usecase.dart';
 import 'package:pumpkin/Domain/usecase/cart_list_usecase.dart';
+import 'package:pumpkin/Domain/usecase/delete_cart_item_usecase.dart';
+import 'package:pumpkin/Domain/usecase/get_item_count_usecase.dart';
 import 'package:pumpkin/Domain/usecase/products_usecase.dart';
 import 'package:pumpkin/Domain/usecase/single_category_usecase.dart';
 import 'package:pumpkin/Domain/usecase/single_product_usecase.dart';
@@ -61,6 +63,10 @@ Future<void> initModule() async {
       () => SingleProductUseCase(sl()));
   sl.registerLazySingleton<CartListUseCase>(() => CartListUseCase(sl()));
   sl.registerLazySingleton<AddToCartUseCase>(() => AddToCartUseCase(sl()));
+  sl.registerLazySingleton<DeleteCartItemUseCase>(
+      () => DeleteCartItemUseCase(sl()));
+  sl.registerLazySingleton<GetItemCountUseCase>(
+      () => GetItemCountUseCase(sl()));
 
   //Cubits
   sl.registerFactory(() => ProductCubit(productUseCase: sl()));
@@ -70,6 +76,9 @@ Future<void> initModule() async {
   sl.registerFactory(() => ProductsCubit(productsUseCase: sl()));
   sl.registerFactory(() =>
       CategoriesCubit(categoriesUseCase: sl(), singleCategoryUseCase: sl()));
-  sl.registerFactory(
-      () => CartCubit(addToCartUseCase: sl(), cartListUseCase: sl()));
+  sl.registerFactory(() => CartCubit(
+      addToCartUseCase: sl(),
+      cartListUseCase: sl(),
+      deleteCartItemUseCase: sl(),
+      getItemCountUseCase: sl()));
 }

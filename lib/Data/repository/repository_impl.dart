@@ -205,10 +205,10 @@ class RepositoryImpl extends Repository {
     if (kIsWeb ? true : (await _networkInfo?.isConnected ?? false)) {
       try {
         final res = await _remoteDataSource.getAllCategories();
+        // print(res.documents[0].data);
         var data = res.documents
             .map((category) => CategoryModel.fromMap(category.data))
             .toList();
-
         for (var category in data) {
           {
             Uint8List image =
@@ -221,6 +221,7 @@ class RepositoryImpl extends Repository {
         return Right(data);
       } on AppwriteException catch (e) {
         print(e.message);
+
         return Left(Failure(e.code ?? 0,
             e.message ?? 'Some thing went wrong, try again later'));
       } catch (error) {
@@ -284,6 +285,46 @@ class RepositoryImpl extends Repository {
     try {
       await _localDataSource.addCartItem(cartItem, count: count);
       return const Right(null);
+    } catch (e) {
+      return Left(Failure(0, e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateCartItem(String id, int count) async {
+    try {
+      await _localDataSource.updateCartItem(id, count);
+      return const Right(null);
+    } catch (e) {
+      return Left(Failure(0, e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteCartItem(String id) async {
+    try {
+      await _localDataSource.deleteCartItem(id);
+      return const Right(null);
+    } catch (e) {
+      return Left(Failure(0, e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getCartCount() async {
+    try {
+      final count = await _localDataSource.getCartCount();
+      return Right(count);
+    } catch (e) {
+      return Left(Failure(0, e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getItemCount(String id) async {
+    try {
+      final count = await _localDataSource.getItemCount(id);
+      return Right(count);
     } catch (e) {
       return Left(Failure(0, e.toString()));
     }

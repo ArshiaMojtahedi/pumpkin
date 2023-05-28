@@ -29,4 +29,13 @@ class CategoryModel {
       products: map['products'] ?? '',
     );
   }
+
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+        id: json['\$id'],
+        name: json['name'],
+        imageId: json['image'] ?? '',
+        image: Uint8List(0),
+        color: json['color'] ?? '',
+        products: json['products'] ?? '',
+      );
 }

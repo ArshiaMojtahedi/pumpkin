@@ -8,6 +8,8 @@ import 'package:pumpkin/Data/model/product.dart';
 import 'package:pumpkin/Data/network/failure.dart';
 import 'package:pumpkin/Domain/usecase/add_cart_item_usecase.dart';
 import 'package:pumpkin/Domain/usecase/cart_list_usecase.dart';
+import 'package:pumpkin/Domain/usecase/delete_cart_item_usecase.dart';
+import 'package:pumpkin/Domain/usecase/get_item_count_usecase.dart';
 import 'package:pumpkin/Domain/usecase/login_usecase.dart';
 import 'package:pumpkin/Domain/usecase/products_usecase.dart';
 
@@ -19,8 +21,14 @@ part 'cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   AddToCartUseCase addToCartUseCase;
   CartListUseCase cartListUseCase;
+  DeleteCartItemUseCase deleteCartItemUseCase;
+  GetItemCountUseCase getItemCountUseCase;
 
-  CartCubit({required this.addToCartUseCase, required this.cartListUseCase})
+  CartCubit(
+      {required this.addToCartUseCase,
+      required this.cartListUseCase,
+      required this.deleteCartItemUseCase,
+      required this.getItemCountUseCase})
       : super(AddToCartEmpty());
 
   addToCart(CartItem item, {int count = 1}) {
@@ -46,6 +54,30 @@ class CartCubit extends Cubit<CartState> {
                 CartItemsFailed((l)),
               ),
           (r) => emit(CartItemsSuccesed((r))));
+    });
+  }
+
+  cartItemDelete(String id) {
+    emit(CartItemDeleteEmpty());
+
+    deleteCartItemUseCase.execute(DeleteCartItemInput(id)).then((value) async {
+      value.fold(
+          (l) => emit(
+                CartItemDeleteFailed((l)),
+              ),
+          (r) => emit(CartItemDeleteSuccesed()));
+    });
+  }
+
+  getItemCount(String id) {
+    emit(CartItemCountEmpty());
+
+    getItemCountUseCase.execute(GetItemCountInput(id)).then((value) async {
+      value.fold(
+          (l) => emit(
+                CartItemCountFailed((l)),
+              ),
+          (r) => emit(CartItemCountSuccesed((r))));
     });
   }
 }

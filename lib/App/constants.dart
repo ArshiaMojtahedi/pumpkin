@@ -1,35 +1,18 @@
 class Constant {
-  static const String baseUrl = 'http://192.168.1.23/v1';
-  static const String projectId = '644d31142dcc03aa6fcf';
+  static const String baseUrl = 'http://107.175.35.125:8080/v1';
+  static const String projectId = '647266eda0a64e88d89b';
 
   //databases
-  static const String databaseId = '644f10fd58024172891e';
+  static const String databaseId = '64726760d94c9cd6f9e8';
 
   //collections
   static const String collectionName = '';
-  static const String productsCollection = '644f110b0132b6d5992b';
-  static const String categoriesCollection = '644f1282b78a82ba6b06';
+  static const String productsCollection = '6472676a53749cbc3955';
+  static const String categoriesCollection = '6472676e66cfb6091dbf';
 
   //encryptKey length == 16
   static const String encryptKey = '5v8y0A?DdG6KbPeS';
 
   //bucked
-  static const String buckedId = '644f1194c394238a9867';
-
-  // static const String baseUrl = 'https://cloud.appwrite.io/v1';
-  // static const String projectId = '6452fb914829fd1ecf27';
-
-  // //databases
-  // static const String databaseId = '6452fc47334eab8ef150';
-
-  // //collections
-  // static const String collectionName = '';
-  // static const String productsCollection = '644f110b0132b6d5992b';
-  // static const String categoriesCollection = '6452fc5fc8a73efe6b5e';
-
-  // //encryptKey length == 16
-  // static const String encryptKey = '5v8y0A?DdG6KbPeS';
-
-  // //bucked
-  // static const String buckedId = '6452fceb42093c84472c';
+  static const String buckedId = '647269805f942a382b23';
 }

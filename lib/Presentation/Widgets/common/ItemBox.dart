@@ -50,115 +50,124 @@ class _ItemBox extends StatelessWidget {
   Widget build(BuildContext context) {
     _bloc = context.read();
 
+    _bloc.getItemCount(product.id);
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
-        return GestureDetector(
-          onTap: () => Get.to(ProductDetailScreen(), arguments: product.id),
-          child: Stack(
-            children: [
-              Container(
-                height: 249,
-                width: isHorizentalItem ? 173 : double.infinity,
-                padding: EdgeInsets.only(
-                  top: 24,
-                  left: 15,
-                  right: 15,
-                  bottom: 16,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xffE2E2E2)),
-                  borderRadius: BorderRadius.all(Radius.circular(18)),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Center(
-                      child: Image.memory(
-                        product.image,
-                        width: 100,
-                        height: 80,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      product.name,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      product.description,
-                      style: TextStyle(
-                          fontSize: 12, color: Appcolors().textColor2),
-                    ),
-                    Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "\$" + product.price.toString(),
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+        if (state is CartItemCountSuccesed) {
+          return GestureDetector(
+            onTap: () => Get.to(ProductDetailScreen(), arguments: product.id),
+            child: Stack(
+              children: [
+                Container(
+                  height: 249,
+                  width: isHorizentalItem ? 173 : double.infinity,
+                  padding: EdgeInsets.only(
+                    top: 24,
+                    left: 15,
+                    right: 15,
+                    bottom: 16,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xffE2E2E2)),
+                    borderRadius: BorderRadius.all(Radius.circular(18)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Center(
+                        child: Image.memory(
+                          product.image,
+                          width: 100,
+                          height: 80,
                         ),
-                        Container(
-                          height: 45,
-                          width: 45,
-                          child: ElevatedButton(
-                            child: Image.asset(
-                                "assets/images/increase_icon.png",
-                                color: Colors.white),
-                            onPressed: () {
-                              _bloc.addToCart(CartItem(
-                                  id: product.id,
-                                  name: product.name,
-                                  price: product.price,
-                                  amount: 1,
-                                  description: product.description,
-                                  image: product.image));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Appcolors().green,
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius:
-                                      new BorderRadius.circular(17.0)),
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      Text(
+                        product.name,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        product.description,
+                        style: TextStyle(
+                            fontSize: 12, color: Appcolors().textColor2),
+                      ),
+                      Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "\$" + product.price.toString(),
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          Container(
+                            height: 45,
+                            width: 45,
+                            child: ElevatedButton(
+                              child: Image.asset(
+                                  "assets/images/increase_icon.png",
+                                  color: Colors.white),
+                              onPressed: () {
+                                _bloc.addToCart(CartItem(
+                                    id: product.id,
+                                    name: product.name,
+                                    price: product.price,
+                                    amount: 1,
+                                    description: product.description,
+                                    image: product.image));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Appcolors().green,
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(17.0)),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 10,
-                left: 10,
-                child: Container(
-                  height: 25,
-                  width: 25,
-                  child: badge.Badge(
-                    badgeContent: Center(
-                      child: Text(
-                        amount.toString(),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    badgeStyle: badge.BadgeStyle(
-                      badgeColor: Appcolors().darkOrange,
-                    ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
-        );
+                Positioned(
+                  top: 10,
+                  left: 10,
+                  child: Container(
+                    height: 25,
+                    width: 25,
+                    child: badge.Badge(
+                      badgeContent: Center(
+                        child: Text(
+                          state.data.toString(),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      badgeStyle: badge.BadgeStyle(
+                        badgeColor: Appcolors().darkOrange,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        } else if (state is CartItemCountFailed) {
+          return Text(state.msg.message);
+        } else if (state is CartItemCountProgress) {
+          return const CircularProgressIndicator();
+        } else {
+          return Text('dasd');
+        }
       },
     );
   }

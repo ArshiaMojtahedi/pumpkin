@@ -54,12 +54,7 @@ class _CartScreen extends StatelessWidget {
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: state.data.length,
                             itemBuilder: (ctx, i) => CartRowItem(
-                              id: 0,
-                              title: state.data[i].name.toString(),
-                              description: state.data[i].description.toString(),
-                              amount: state.data[i].amount,
-                              price: state.data[i].price!,
-                              image: state.data[i].image!,
+                              product: state.data[i],
                             ),
                           ),
                         ),
