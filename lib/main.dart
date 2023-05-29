@@ -11,7 +11,7 @@ import 'Data/local/hive_client.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initModule();
-  await initHive();
+  // await initHive();
   runApp(const MyApp());
 }
 
