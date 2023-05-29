@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pumpkin/Data/data_source/local_data_source.dart';
-import 'package:pumpkin/Domain/usecase/Categories_usecase.dart';
+import 'package:pumpkin/Domain/usecase/categories_usecase.dart';
 import 'package:pumpkin/Domain/usecase/add_cart_item_usecase.dart';
 import 'package:pumpkin/Domain/usecase/cart_list_usecase.dart';
 import 'package:pumpkin/Domain/usecase/delete_cart_item_usecase.dart';

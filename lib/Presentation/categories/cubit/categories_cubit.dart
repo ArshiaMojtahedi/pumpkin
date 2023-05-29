@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:pumpkin/App/dartz_x.dart';
 import 'package:pumpkin/Data/model/product.dart';
 import 'package:pumpkin/Data/network/failure.dart';
-import 'package:pumpkin/Domain/usecase/Categories_usecase.dart';
+import 'package:pumpkin/Domain/usecase/categories_usecase.dart';
 import 'package:pumpkin/Domain/usecase/single_category_usecase.dart';
 
 import '../../../App/app_preferences.dart';
